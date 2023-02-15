@@ -1,65 +1,63 @@
-from  aiogram import Bot , Dispatcher, executor, types
-from dotenv import load_dotenv
+from aiogram import Bot,Dispatcher,executor,types
+from aiogram.dispatcher.filtres import Text
+from dotenv import loar_dotenv
 from os import getenv
+import logging
+from geschaft.admin import start
+from geschaft.help import i_am_trying
+from geschaft.myinfo_command import send_info
+from pictures.import friend_picture
+from geschaft.shop import shop_start
+from geschaft.adresse_shop import adresse_shop
+from geschaft.Gesundheitsprodukte import get_products
+from geschaft.buy_item import buy_item
 
-load_dotenv()
-BOT_TOKEN ="5927903737:AAFGIJL8sWGNec_M2zoDXruwT65tmS5ziuE"
-#наш бот
-bot = Bot(BOT_TOKEN)
-#диспетчер, получает сообщения, обрабатывает через обработчик
-dp = Dispatcher(bot)
-
-
-
-@dp.message_handler(commands=["start"])
-async def start_command(message:types.Message):
-   """
-   Функция приветствия пользователя по имени
-   """
-   print(f"{message.from_user.id=}")
-   print(f"{message.from_user.first_name=}")
-   print(f"{message.from_user.last_name=}")
-   print(f"{message.from_user.full_name=}")
-   print(f"{message.from_user.username=}")
-   print(f"{message.from_user.locale=}")
-
-
-   await message.answer(text=f"Привет,{message.from_user.first_name},я бот BotNurisa")
-   await message.delete()
+from geschaft.form_exe import(
+    Form,
+    cancel_handler,
+    name_get,
+    adress_get,
+    get_age,
+    age_check,
+    day_check,
+    process_done
+)
 
 
+from geschaft.bot_kick import(
+    check_message,
+    ban_user
+)
+
+
+loar_dotenv()
+bot= Bot (getenv ('MY_TOKEN'))
+dp= Dispatcher(bot)
+
+dp.register_message_handler(start,commands=['start'])
+dp.register_message_handler(i_am_trying,commands=['help'])
+dp.register_message_handler(send_info,commands=['myinfo'])
+dp.register_message_handler(friend_picture,commands=['picture'])
+dp.register_callback_query_handler(shop_start, command=['shop_start'])
+dp.register_callback_query_handler(adresse_shop, command=['adresse_shop'])
+dp.register_message_handler(get_products,Text(equals='Продукты для здоровья') )
+dp.register_callback_query_handler(name_get,Text(startwith='byi_item'))
+dp.register_message_handler(name_get, commands=['form'])
+dp.register_message_handler(name_get, Text(equals='Нет'),state=Form.done)
+dp.register_message_handler(cancel_handler, state='*', commands='cancel')
+dp.register_message_handler(cancel_handler, Text(equals='cancel,ignore_case=True'),state='*')
+dp.register_message_handler(adress_get, state=Form.name)
+dp.message_handler(get_age,state=Form.adress)
+dp.register_message_handler(age_chek,state=Form.age )
+dp.register_message_handler(age_chek,state=Form.day )
+dp.register_message_handler(process_done, Text(equals='Да'),state=Form.done)
+dp.register_message_handler(ban_user,commands=['да'],commands_prefix='!' )
+dp.register_message_handler(check_message)
 
 
 
-@dp.message_handler(commands="picture")
-async def image_sender(message:types.Message):
-    """
-    Функция ответа пользователю картинкой
-    :param message:
-    :return:
-    """
-    await message.answer_photo(
-        open('./img.jpg','rb'),
-
-    )
-    await message.delete()
 
 
-@dp.message_handler(commands=["help"])
-async def help_command(message:types.Message):
-   """
-   Функция приветствия пользователя по имени
-   """
-   await message.answer(text=f"список команд с описанием {message.from_user.first_name}")
-   await message.delete()
-
-@dp.message_handler()
-async def echo (message:types.Message):
-   """
-   Функция ответа пользователю заглавными буквами
-   """
-   await message.reply(text =message.text.upper())
-
-
-if __name__ == "__main__":
-    executor.start_polling(dp)
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+    executor.start_polling(dp,skip_updates=True, on_startup=startup)
