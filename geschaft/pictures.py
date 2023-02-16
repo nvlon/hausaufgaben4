@@ -9,7 +9,7 @@ async def image_sender(message:types.Message):
     :return:
     """
     await message.answer_photo(
-        open('../img.jpg', 'rb'),
+        open('../images/img.jpg', 'rb'),
 
     )
     await message.delete()
