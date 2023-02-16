@@ -1,5 +1,5 @@
 from aiogram import types
-from geschaft.constanst import INFO_TEXT
+from handlers import INFO_TEXT
 
 async def send_info(message: types.Message):
     """

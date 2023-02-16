@@ -1,6 +1,6 @@
 from aiogram import types
 from aiogram.types import InlineKeyboardButton,InlineKeyboardMarkup
-from geschaft import get_products
+from handlers import get_products
 
 def etwas_kaufen(product_id):
     etwas_kaufen=InlineKeyboardMarkup()

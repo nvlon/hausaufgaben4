@@ -1,6 +1,6 @@
 from aiogram import types
 
-from geschaft.constants import START_TEXT
+from handlers import START_TEXT
 from aiogram.types import InlineKeyboardButton,InlineKeyboardMarkup
 start_kb = InlineKeyboardMarkup(resize_keyboard= True)
 start_kb.add (

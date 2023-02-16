@@ -1,5 +1,5 @@
 from aiogram import types
-from geschaft import BAD_TEXT
+from handlers import BAD_TEXT
 
 
 async def check_message(message: types.Message):

@@ -3,16 +3,16 @@ from aiogram.dispatcher.filtres import Text
 from dotenv import loar_dotenv
 from os import getenv
 import logging
-from geschaft.admin import start
-from geschaft.help import i_am_trying
-from geschaft.myinfo_command import send_info
+from handlers import start
+from handlers import i_am_trying
+from handlers import send_info
 from pictures.import friend_picture
-from geschaft.shop import shop_start
-from geschaft.adresse_shop import adresse_shop
-from geschaft.Gesundheitsprodukte import get_products
-from geschaft.buy_item import buy_item
+from handlers import shop_start
+from handlers import adresse_shop
+from handlers import get_products
+from handlers import buy_item
 
-from geschaft.form_exe import(
+from handlers import(
     Form,
     cancel_handler,
     name_get,
@@ -24,7 +24,7 @@ from geschaft.form_exe import(
 )
 
 
-from geschaft.bot_kick import(
+from handlers import(
     check_message,
     ban_user
 )

@@ -5,16 +5,16 @@ from aiogram import executor
 from aiogram.dispatcher.filters import Text
 
 
-from geschaft.admin import start_command
-from geschaft.form_exe import (Form, adress_get, age_check, cancel_handler,
-                                day_check, get_age, name_get, process_done)
-from geschaft.help import i_am_trying
-from geschaft.bot_kick import ban_user, check_message
-from geschaft.myinfo_command import send_info
-from geschaft.pictures import friend_picture
-from geschaft.scheduler import schedule_command, scheduler
-from geschaft.shop import shop_start
-from geschaft.adresse_shop import adresse_shop
+from handlers import start_command
+from handlers import (Form, adress_get, age_check, cancel_handler,
+                      day_check, get_age, name_get, process_done)
+from handlers import i_am_trying
+from handlers import ban_user, check_message
+from handlers import send_info
+from handlers import friend_picture
+from handlers import schedule_command, scheduler
+from handlers import shop_start
+from handlers import adresse_shop
 
 
 
